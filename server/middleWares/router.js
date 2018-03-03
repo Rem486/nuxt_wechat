@@ -9,6 +9,9 @@ export const router = app => {
   const router = new Router()
 
   router.get('/wechat-hear', (ctx, next) => {
+    // 访问这个的时候才引入创建的wechat实例
+    require('../wechat')
+
     const token = config.wechat.token
     const {
       signature,

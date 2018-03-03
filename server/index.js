@@ -6,7 +6,7 @@ import { resolve } from 'path'
 // 处理文件路径
 const r = path => resolve(__dirname, path)
 // 定义中间件
-const MIDDLEWARES = ['router']
+const MIDDLEWARES = ['database', 'router']
 
 // 构建服务器
 class Server {
