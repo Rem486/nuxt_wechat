@@ -14,8 +14,10 @@
   "dependencies": {
     "cross-env": "^5.0.1",
     "ejs": "^2.5.7",
+    "formstream": "^1.1.0",
     "koa": "^2.4.1",
     "koa-router": "^7.4.0",
+    "lodash": "^4.17.5",
     "mongoose": "^5.0.7",
     "nuxt": "latest",
     "ramda": "^0.25.0",
