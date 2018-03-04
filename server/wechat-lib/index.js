@@ -5,10 +5,23 @@
  * 管理微信库
  */
 import rp from 'request-promise'
+import formsteam from 'formsteam'
+import fs from 'fs'
 
 const base = 'https://api.weixin.qq.com/cgi-bin/'
 const api = {
   accessToken: `${base}token?grant_type=client_credential`,
+
+}
+
+// 获取文件信息
+function statFile (filepath) {
+  return new Promise((resolve, reject) => {
+    fs.stat(filepath, (err, stat) => {
+      if (err) reject(err)
+      else resolve(stat)
+    })
+  })
 
 }
 
@@ -80,5 +93,32 @@ export default class Wechat {
 
     // 判断时间是否失效
     return now < expiresIn
+  }
+
+  /**
+   * 上传素材
+   * @param token
+   * @param type
+   * @param material
+   * @param permanent 永久素材
+   */
+  async uploadMaterial (token, type, material, permanent) {
+    let form = {}
+    // 默认临时素材
+    let url = api.temporary.upload
+    if (permanent) {
+      url = api.permanent.upload
+    }
+
+    if (type === 'pic') {
+      url = api.permanent.uploadNewsPic
+    } else if (type === 'news') {
+      url = api.permanent.uploadNewsNews
+    } else {
+      //  视频这些，构建表单
+      form = formsteam()
+      const stat = await statFile(material)
+      form.file('media', material, path.basename(material), size)
+    }
   }
 }
