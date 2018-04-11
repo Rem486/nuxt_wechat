@@ -27,7 +27,7 @@ export const database = app => {
     console.error(err)
   })
   //  连接成功
-  mongoose.connection.on('open', async => {
+  mongoose.connection.on('open', async () => {
     console.log('Connected to mongoose')
   })
 }

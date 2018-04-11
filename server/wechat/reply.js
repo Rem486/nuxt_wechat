@@ -7,6 +7,10 @@ export default async (ctx, next) => {
   const message = ctx.weixin
   console.log('reply的ctx.weixin: ', message)
 
+  // 引入封装好的微信方法 测试接口
+  let wechat = require('../wechat')
+  let client = wechat.getWechat()
+
   switch (message.MsgType) {
     // // 事件
     case 'event':
@@ -19,6 +23,19 @@ export default async (ctx, next) => {
       }
       break
     case 'text':
+      if (message.Content === '1') {
+        let userList = [
+          { openid: 'o6YlSw3351cKB4n6oGtL7ngTPlgs', lang: 'zh_CN' },
+          { openid: 'o6YlSw7_6YvCnUzLXtfeyugFQgrA', lang: 'zh_CN' },
+          { openid: 'o6YlSw-VYCg-RMPdVpMwyf-QZ5zw', lang: 'zh_CN' },
+          { openid: 'o6YlSw1QqktL045BHlgVofgaae3o', lang: 'zh_CN' },
+          { openid: 'o6YlSw5jTbTRWw6HGYDq72v6QFPE', lang: 'zh_CN' },
+          { openid: 'o6YlSw6cS-CLPMlPsrN37W8uqKCE', lang: 'zh_CN' }
+        ]
+
+        const data = await client.handleUpload('fetchTags')
+        console.log('返回数据', data)
+      }
       ctx.body = message.Content
       break
     case 'image':
